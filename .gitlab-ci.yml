@@ -5,11 +5,9 @@ stages:
 docker-swarm-deploy-zipkin:
   stage: docker-swarm-deploy-zipkin
   script:
-    - export SENTRY_SECRET_KEY=$SENTRY_SECRET_KEY
     - sudo docker stack deploy -c deploy-zipkin.yaml socshared
 
 docker-swarm-deploy-sentry:
   stage: docker-swarm-deploy-sentry
   script:
-    - export SENTRY_SECRET_KEY=$SENTRY_SECRET_KEY
     - sudo docker stack deploy -c deploy-sentry.yaml socshared
