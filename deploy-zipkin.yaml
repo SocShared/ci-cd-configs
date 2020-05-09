@@ -1,0 +1,13 @@
+version: '3'
+services:
+  zipkin:
+    image: openzipkin/zipkin:2
+    deploy:
+      replicas: 1
+    ports:
+      - 9411:9411
+      
+networks:
+  default:
+    external:
+      name: socshared

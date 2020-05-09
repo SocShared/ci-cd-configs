@@ -1,0 +1,9 @@
+docker-deploy-zipkin:
+  stage: docker-swarm-deploy-zipkin
+  script:
+    - sudo docker stack deploy -c deploy-zipkin.yaml socshared
+
+docker-deploy-sentry:
+  stage: docker-swarm-deploy-sentry
+  script:
+    - sudo docker stack deploy -c deploy-sentry.yaml socshared
