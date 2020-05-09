@@ -6,7 +6,6 @@ stages:
 docker-swarm-deploy-postgres-redis:
   stage: docker-swarm-deploy-postgres-redis
   script:
-    - sudo docker network create -d overlay socshared
     - sudo docker stack deploy -c deploy-postgres-redis.yaml socshared
 
 docker-swarm-deploy-zipkin:
