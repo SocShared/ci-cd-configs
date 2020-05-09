@@ -6,11 +6,15 @@ volumes:
 services:
   sentry_redis:
     image: redis
+    ports:
+      - 6379:6379
     deploy:
       replicas: 1
 
   sentry_postgres:
     image: postgres
+    ports:
+      - 5435:5432
     deploy:
       replicas: 1
     environment:
