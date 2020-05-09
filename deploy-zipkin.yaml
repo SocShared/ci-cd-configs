@@ -1,8 +1,4 @@
 version: '3.7'
-
-volumes:
-  pgdb:
-
 services:
   zipkin:
     image: openzipkin/zipkin:2
@@ -11,21 +7,6 @@ services:
     ports:
       - 9411:9411
 
-  sentry_redis:
-    image: redis
-    deploy:
-      replicas: 1
-
-  sentry_postgres:
-    image: postgres
-    deploy:
-      replicas: 1
-    environment:
-      POSTGRES_USER: sentry_postgres
-      POSTGRES_PASSWORD: 171322f6-3734-464e-9e58-deb6e9a419e5
-      POSTGRES_DB: sentry
-    volumes:
-      - pgdb:/var/lib/postgresql/data
 networks:
   default:
     name: socshared
