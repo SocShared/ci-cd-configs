@@ -12,11 +12,11 @@ docker-swarm-deploy-sentry:
   stage: docker-swarm-deploy-sentry
   script:
     - touch .env
-    - echo "SENTRY_SECRET_KEY=$SENTRY_KEY\n" >> .env
-    - echo "SENTRY_POSTGRES_HOST=sentry_postgres\n" >> .env
-    - echo "SENTRY_DB_USER=sentry_postgres\n" >> .env
-    - echo "SENTRY_DB_PASSWORD=171322f6-3734-464e-9e58-deb6e9a419e5\n" >> .env
-    - echo "SENTRY_REDIS_HOST=sentry_redis\n" >> .env
+    - echo "SENTRY_SECRET_KEY=$SENTRY_KEY" >> .env
+    - echo "SENTRY_POSTGRES_HOST=sentry_postgres" >> .env
+    - echo "SENTRY_DB_USER=sentry" >> .env
+    - echo "SENTRY_DB_PASSWORD=171322f63734464e9e58deb6e9a419e5" >> .env
+    - echo "SENTRY_REDIS_HOST=sentry_redis" >> .env
     - sudo docker stack deploy -c deploy-sentry.yaml socshared
 #    - sudo docker exec $(sudo docker ps -q -f name=socshared_sentry) sentry upgrade
 #    - sudo docker exec $(sudo docker ps -q -f name=socshared_sentry) sentry createuser --email $VEE_EMAIL --password $VEE_PASSWORD --superuser --no-input

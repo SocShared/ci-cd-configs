@@ -14,8 +14,8 @@ services:
     deploy:
       replicas: 1
     environment:
-      POSTGRES_USER: sentry_postgres
-      POSTGRES_PASSWORD: 171322f6-3734-464e-9e58-deb6e9a419e5
+      POSTGRES_USER: sentry
+      POSTGRES_PASSWORD: 171322f63734464e9e58deb6e9a419e5
       POSTGRES_DB: sentry
     volumes:
       - pgdb:/var/lib/postgresql/data
