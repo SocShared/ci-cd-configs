@@ -1,3 +1,7 @@
+stages:
+  - docker-deploy-zipkin
+  - docker-deploy-sentry
+
 docker-deploy-zipkin:
   stage: docker-swarm-deploy-zipkin
   script:
