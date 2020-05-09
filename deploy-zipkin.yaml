@@ -9,5 +9,4 @@ services:
       
 networks:
   default:
-    external:
       name: socshared

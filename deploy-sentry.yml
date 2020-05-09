@@ -6,9 +6,13 @@ volumes:
 services:
   sentry_redis:
     image: redis
+    deploy:
+      replicas: 1
 
   sentry_postgres:
     image: postgres
+    deploy:
+      replicas: 1
     environment:
       POSTGRES_USER: sentry
       POSTGRES_PASSWORD: sentry
@@ -21,6 +25,8 @@ services:
     links:
      - sentry_redis
      - sentry_postgres
+    deploy:
+      replicas: 1
     ports:
      - 9898:9898
     environment:
@@ -35,6 +41,8 @@ services:
     links:
      - sentry_redis
      - sentry_postgres
+    deploy:
+      replicas: 1v
     command: "sentry run cron"
     environment:
       SENTRY_SECRET_KEY: 'iwd+#q*0_(8xgtq&r2sl)ci(ive@7mc4)g9&d5)gr_8_(5(gdh'
@@ -49,6 +57,8 @@ services:
      - sentry_redis
      - sentry_postgres
     command: "sentry run worker"
+    deploy:
+      replicas: 1
     environment:
       SENTRY_SECRET_KEY: 'iwd+#q*0_(8xgtq&r2sl)ci(ive@7mc4)g9&d5)gr_8_(5(gdh'
       SENTRY_POSTGRES_HOST: postgres
@@ -58,5 +68,4 @@ services:
 
 networks:
   default:
-    external:
       name: socshared
