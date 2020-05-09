@@ -22,5 +22,5 @@ services:
 
 networks:
   default:
-    name: socshared
-    driver: overlay
+    external:
+      name: socshared
