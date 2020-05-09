@@ -42,7 +42,7 @@ services:
      - sentry_redis
      - sentry_postgres
     deploy:
-      replicas: 1v
+      replicas: 1
     command: "sentry run cron"
     environment:
       SENTRY_SECRET_KEY: 'iwd+#q*0_(8xgtq&r2sl)ci(ive@7mc4)g9&d5)gr_8_(5(gdh'
