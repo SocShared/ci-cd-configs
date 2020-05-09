@@ -30,7 +30,7 @@ services:
     ports:
      - 9898:9898
     environment:
-      SENTRY_SECRET_KEY: /run/secrets/db_password
+      SENTRY_SECRET_KEY: /run/secrets/sentry_key
       SENTRY_POSTGRES_HOST: sentry_postgres
       SENTRY_DB_USER: sentry
       SENTRY_DB_PASSWORD: sentry
@@ -47,7 +47,7 @@ services:
       replicas: 1
     command: "sentry run cron"
     environment:
-      SENTRY_SECRET_KEY: /run/secrets/db_password
+      SENTRY_SECRET_KEY: /run/secrets/sentry_key
       SENTRY_POSTGRES_HOST: sentry_postgres
       SENTRY_DB_USER: sentry
       SENTRY_DB_PASSWORD: sentry
@@ -64,7 +64,7 @@ services:
     deploy:
       replicas: 1
     environment:
-      SENTRY_SECRET_KEY: /run/secrets/db_password
+      SENTRY_SECRET_KEY: /run/secrets/sentry_key
       SENTRY_POSTGRES_HOST: sentry_postgres
       SENTRY_DB_USER: sentry
       SENTRY_DB_PASSWORD: sentry
@@ -73,7 +73,8 @@ services:
       - sentry_key
 
 secrets:
-  sentry_key: "${SENTRY_SECRET_KEY}"
+  sentry_key:
+    file: sentry_key.txt
 
 networks:
   default:
