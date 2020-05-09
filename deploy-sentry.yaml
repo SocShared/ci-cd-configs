@@ -73,8 +73,7 @@ services:
       - sentry_key
 
 secrets:
-  sentry_key:
-    file: sentry_key.txt
+  sentry_key: "${SENTRY_SECRET_KEY}"
 
 networks:
   default:
