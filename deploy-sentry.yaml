@@ -30,11 +30,11 @@ services:
     ports:
      - 9898:9898
     environment:
-      SENTRY_SECRET_KEY: 'iwd+#q*0_(8xgtq&r2sl)ci(ive@7mc4)g9&d5)gr_8_(5(gdh'
-      SENTRY_POSTGRES_HOST: postgres
+      SENTRY_SECRET_KEY: ${SENTRY_SECRET_KEY}
+      SENTRY_POSTGRES_HOST: sentry_postgres
       SENTRY_DB_USER: sentry
       SENTRY_DB_PASSWORD: sentry
-      SENTRY_REDIS_HOST: redis
+      SENTRY_REDIS_HOST: sentry_redis
 
   sentry_cron:
     image: sentry
@@ -45,11 +45,11 @@ services:
       replicas: 1
     command: "sentry run cron"
     environment:
-      SENTRY_SECRET_KEY: 'iwd+#q*0_(8xgtq&r2sl)ci(ive@7mc4)g9&d5)gr_8_(5(gdh'
-      SENTRY_POSTGRES_HOST: postgres
+      SENTRY_SECRET_KEY: ${SENTRY_SECRET_KEY}
+      SENTRY_POSTGRES_HOST: sentry_postgres
       SENTRY_DB_USER: sentry
       SENTRY_DB_PASSWORD: sentry
-      SENTRY_REDIS_HOST: redis
+      SENTRY_REDIS_HOST: sentry_redis
 
   sentry_worker:
     image: sentry
@@ -60,11 +60,11 @@ services:
     deploy:
       replicas: 1
     environment:
-      SENTRY_SECRET_KEY: 'iwd+#q*0_(8xgtq&r2sl)ci(ive@7mc4)g9&d5)gr_8_(5(gdh'
-      SENTRY_POSTGRES_HOST: postgres
+      SENTRY_SECRET_KEY: ${SENTRY_SECRET_KEY}
+      SENTRY_POSTGRES_HOST: sentry_postgres
       SENTRY_DB_USER: sentry
       SENTRY_DB_PASSWORD: sentry
-      SENTRY_REDIS_HOST: redis
+      SENTRY_REDIS_HOST: sentry_redis
 
 networks:
   default:
