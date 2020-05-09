@@ -28,7 +28,7 @@ services:
     deploy:
       replicas: 1
     ports:
-     - 9898:8080
+     - 9898:9000
     environment:
       SENTRY_SECRET_KEY: /run/secrets/sentry_key
       SENTRY_POSTGRES_HOST: sentry_postgres
