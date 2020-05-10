@@ -24,6 +24,7 @@ docker-swarm-deploy-sentry:
     - echo "SENTRY_DB_PASSWORD=171322f63734464e9e58deb6e9a419e5" >> .env
     - echo "SENTRY_REDIS_HOST=socshared_sentry_redis" >> .env
     - sudo docker stack deploy -c deploy-sentry.yaml socshared
+    - chmod +x sentry.sh
     - ./sentry.sh
 #    - sudo docker exec $(sudo docker ps -q -f name=socshared_sentry) sentry upgrade
 #    - sudo docker exec $(sudo docker ps -q -f name=socshared_sentry) sentry createuser --email $VEE_EMAIL --password $VEE_PASSWORD --superuser --no-input
