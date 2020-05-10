@@ -9,7 +9,7 @@ services:
      - 9000:9000
     command:
       - "sentry upgrade --noinput"
-      - "sentry createuser --email vladovchinnikov950@gmail.com --password admin --superuser --no-input"
+    #  - "sentry createuser --email vladovchinnikov950@gmail.com --password admin --superuser --no-input"
     env_file:
       - .env
 
