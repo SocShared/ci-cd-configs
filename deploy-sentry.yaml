@@ -7,7 +7,6 @@ services:
       replicas: 1
     ports:
      - 9000:9000
-    command: "sh sentry upgrade --noinput"
     env_file:
       - .env
 
