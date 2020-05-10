@@ -17,8 +17,8 @@ docker-swarm-deploy-zipkin:
 docker-swarm-deploy-sentry:
   stage: docker-swarm-deploy-sentry
   script:
-    - sudo chmod +x sentry/install.sh
-    - sudo sh ./sentry/install.sh
+    - sudo chmod +x install.sh
+    - sudo sh ./install.sh
 #    - touch .env
 #    - echo "SENTRY_SECRET_KEY=$SENTRY_KEY" >> .env
 #    - echo "SENTRY_POSTGRES_HOST=socshared_sentry_postgres" >> .env
