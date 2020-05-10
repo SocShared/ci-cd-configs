@@ -1,12 +1,6 @@
 stages:
-  - docker-swarm-deploy-postgres-redis
   - docker-swarm-deploy-zipkin
   - docker-swarm-deploy-sentry
-
-docker-swarm-deploy-postgres-redis:
-  stage: docker-swarm-deploy-postgres-redis
-  script:
-    - sudo docker stack deploy -c deploy-postgres-redis.yaml socshared
 
 docker-swarm-deploy-zipkin:
   stage: docker-swarm-deploy-zipkin
@@ -17,3 +11,5 @@ docker-swarm-deploy-sentry:
   stage: docker-swarm-deploy-sentry
   script:
     - sudo docker stack deploy -c deploy-sentry.yaml socshared
+    - sudo docker exec $(sudo docker ps -q -f name=socshared_sentry) sentry upgrade
+    - sudo docker exec $(sudo docker ps -q -f name=socshared_sentry) sentry createuser --email $VEE_EMAIL --password $VEE_PASSWORD --superuser --no-input
