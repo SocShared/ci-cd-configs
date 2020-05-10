@@ -33,7 +33,7 @@ docker-swarm-deploy-sentry:
     - echo "CONTAINER_ID " $CONTAINER_ID
     - NODE_HOST=$(sudo docker node inspect --format '{{ .Description.Hostname }}' $NODE_ID)
     - echo "NODE_HOST " $NODE_HOST
-    - export DOCKER_HOST="tcp://$NODE_HOST:2376" && sudo docker exec $CONTAINER_ID "sentry upgrade && sentry createuser --email vladovchinnikov950@gmail.com --password admin --superuser --no-input
+    - export DOCKER_HOST="tcp://$NODE_HOST:2376" && sudo docker exec $CONTAINER_ID "sentry upgrade && sentry createuser --email vladovchinnikov950@gmail.com --password admin --superuser --no-input"
 
 docker-swarm-deploy-rabbitmq:
   stage: docker-swarm-deploy-rabbitmq
