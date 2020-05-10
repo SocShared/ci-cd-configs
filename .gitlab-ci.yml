@@ -18,8 +18,8 @@ docker-swarm-deploy-sentry:
     - echo "SENTRY_DB_PASSWORD=171322f6-3734-464e-9e58-deb6e9a419e5" >> .env
     - echo "SENTRY_REDIS_HOST=sentry_redis" >> .env
     - sudo docker stack deploy -c deploy-sentry.yaml socshared
-    - sudo docker exec $(sudo docker ps -q -f name=socshared_sentry) sentry upgrade
-    - sudo docker exec $(sudo docker ps -q -f name=socshared_sentry) sentry createuser --email $VEE_EMAIL --password $VEE_PASSWORD --superuser --no-input
+#    - sudo docker exec $(sudo docker ps -q -f name=socshared_sentry) sentry upgrade
+#    - sudo docker exec $(sudo docker ps -q -f name=socshared_sentry) sentry createuser --email $VEE_EMAIL --password $VEE_PASSWORD --superuser --no-input
 
 docker-swarm-deploy-rabbitmq:
   stage: docker-swarm-deploy-rabbitmq
