@@ -1,33 +1,8 @@
 version: '3.7'
 
-volumes:
-  pgdb:
-
 services:
-  sentry_redis:
-    image: redis
-    deploy:
-      replicas: 1
-
-  sentry_postgres:
-    image: postgres
-    deploy:
-      replicas: 1
-    environment:
-      POSTGRES_USER: sentry
-      POSTGRES_PASSWORD: 171322f63734464e9e58deb6e9a419e5
-      POSTGRES_DB: sentry
-    volumes:
-      - pgdb:/var/lib/postgresql/data
-
   sentry:
     image: sentry
-    links:
-     - sentry_redis
-     - sentry_postgres
-    depends_on:
-      - sentry_postgres
-      - sentry_redis
     deploy:
       replicas: 1
     ports:
@@ -38,12 +13,6 @@ services:
 
   sentry_cron:
     image: sentry
-    links:
-      - sentry_redis
-      - sentry_postgres
-    depends_on:
-      - sentry_postgres
-      - sentry_redis
     deploy:
       replicas: 1
     command: "sentry run cron"
@@ -52,12 +21,6 @@ services:
 
   sentry_worker:
     image: sentry
-    links:
-      - sentry_redis
-      - sentry_postgres
-    depends_on:
-      - sentry_postgres
-      - sentry_redis
     command: "sentry run worker"
     deploy:
       replicas: 1
