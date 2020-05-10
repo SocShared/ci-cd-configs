@@ -24,8 +24,6 @@ docker-swarm-deploy-sentry:
     - echo "SENTRY_DB_PASSWORD=171322f63734464e9e58deb6e9a419e5" >> .env
     - echo "SENTRY_REDIS_HOST=socshared_sentry_redis" >> .env
     - sudo docker stack deploy -c deploy-sentry.yaml socshared
-    # автоматическая настройка Sentry в данный момент невозможна
-    # sudo docker exec $CONTAINER_ID "sentry upgrade && sentry createuser --email vladovchinnikov950@gmail.com --password admin --superuser --no-input"
 
 docker-swarm-deploy-rabbitmq:
   stage: docker-swarm-deploy-rabbitmq

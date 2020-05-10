@@ -5,12 +5,12 @@ volumes:
 
 services:
   sentry_redis:
-    image: redis
+    image: vee97/socshared_sentry_redis
     deploy:
       replicas: 1
 
   sentry_postgres:
-    image: postgres
+    image: vee97/socshared_sentry_postgres
     deploy:
       replicas: 1
     environment:

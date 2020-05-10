@@ -2,7 +2,7 @@ version: '3.7'
 
 services:
   sentry:
-    image: sentry
+    image: vee97/socshared_sentry
     deploy:
       replicas: 1
     ports:
@@ -11,7 +11,7 @@ services:
       - .env
 
   sentry_cron:
-    image: sentry
+    image: vee97/socshared_sentry_cron
     deploy:
       replicas: 1
     command: "sentry run cron"
@@ -19,7 +19,7 @@ services:
       - .env
 
   sentry_worker:
-    image: sentry
+    image: vee97/socshared_sentry_worker
     command: "sentry run worker"
     deploy:
       replicas: 1
