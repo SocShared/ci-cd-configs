@@ -26,9 +26,13 @@ docker-swarm-deploy-sentry:
     - sudo docker stack deploy -c deploy-sentry.yaml socshared
     - SERVICE_NAME=socshared_sentry
     - TASK_ID=$(sudo docker service ps --filter 'desired-state=running' $SERVICE_NAME -q)
+    - echo "TASK_ID " + $TASK_ID
     - NODE_ID=$(sudo docker inspect --format '{{ .NodeID }}' $TASK_ID)
+    - echo "NODE_ID " + $NODE_ID
     - CONTAINER_ID=$(sudo docker inspect --format '{{ .Status.ContainerStatus.ContainerID }}' $TASK_ID)
+    - echo "CONTAINER_ID " + $CONTAINER_ID
     - NODE_HOST=$(sudo docker node inspect --format '{{ .Description.Hostname }}' $NODE_ID)
+    - echo "NODE_HOST " + $NODE_HOST
     - export DOCKER_HOST="tcp://$NODE_HOST:2376"
     - sudo docker exec -it $CONTAINER_ID "sentry upgrade"
     - sudo docker exec -it $CONTAINER_ID "sentry createuser --email vladovchinnikov950@gmail.com --password admin --superuser --no-input"
