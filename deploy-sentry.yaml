@@ -1,5 +1,8 @@
 version: '3.7'
 
+volumes:
+  sentryv:
+
 services:
   sentry:
     image: sentry
@@ -9,6 +12,8 @@ services:
      - 9000:9000
     env_file:
       - .env
+    volumes:
+      - sentryv:/var/lib/sentry/data
 
   sentry_cron:
     image: sentry

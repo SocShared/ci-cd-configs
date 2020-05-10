@@ -1,7 +1,7 @@
 version: '3.7'
 
 volumes:
-  pg:
+  pgdb:
 
 services:
   sentry_redis:
@@ -18,7 +18,7 @@ services:
       POSTGRES_PASSWORD: 171322f63734464e9e58deb6e9a419e5
       POSTGRES_DB: sentry
     volumes:
-      - pg:/var/lib/postgresql/data
+      - pgdb:/var/lib/postgresql/data
 
 networks:
   default:
