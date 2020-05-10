@@ -7,7 +7,7 @@ services:
       replicas: 1
     ports:
      - 9000:9000
-    command: "sentry createuser --email vladovchinnikov950@gmail.com --password admin --superuser --no-input"
+    command: "sentry upgrade || sentry createuser --email vladovchinnikov950@gmail.com --password admin --superuser --no-input"
     env_file:
       - .env
 
