@@ -23,8 +23,19 @@ docker-swarm-deploy-sentry:
     - echo "SENTRY_DB_USER=sentry" >> .env
     - echo "SENTRY_DB_PASSWORD=171322f63734464e9e58deb6e9a419e5" >> .env
     - echo "SENTRY_REDIS_HOST=socshared_sentry_redis" >> .env
+    - sudo docker service rm $(sudo docker service ls)
     - sudo docker stack deploy -c deploy-sentry.yaml socshared
-    - sudo docker service rm $(docker service ls --filter=socshared_sentry)
+    - SERVICE_NAME=socshared_sentry
+    - TASK_ID=$(sudo docker service ps --filter 'desired-state=running' $SERVICE_NAME -q)
+    - echo "TASK_ID " $TASK_ID
+    - NODE_ID=$(sudo docker inspect --format '{{ .NodeID }}' $TASK_ID)
+    - echo "NODE_ID " $NODE_ID
+    - CONTAINER_ID=$(sudo docker inspect --format '{{ .Status.ContainerStatus.ContainerID }}' $TASK_ID)
+    - echo "CONTAINER_ID " $CONTAINER_ID
+    - NODE_HOST=$(sudo docker node inspect --format '{{ .Description.Hostname }}' $NODE_ID)
+    - echo "NODE_HOST " $NODE_HOST
+    - export DOCKER_HOST="tcp://$NODE_HOST:2376"
+    - sudo docker exec $CONTAINER_ID "sentry upgrade && sentry createuser --email vladovchinnikov950@gmail.com --password admin --superuser --no-input
 
 docker-swarm-deploy-rabbitmq:
   stage: docker-swarm-deploy-rabbitmq
