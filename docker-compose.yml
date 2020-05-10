@@ -119,7 +119,7 @@ services:
     << : *snuba_defaults
     image: snuba-cleanup-onpremise-local
     build:
-      context: ./cron
+      context: cron
       args:
         BASE_IMAGE: 'getsentry/snuba:latest'
     command: '"*/5 * * * * gosu snuba snuba cleanup --dry-run False"'
@@ -133,7 +133,7 @@ services:
     << : *restart_policy
     image: symbolicator-cleanup-onpremise-local
     build:
-      context: ./cron
+      context: cron
       args:
         BASE_IMAGE: 'getsentry/symbolicator:latest'
     command: '"55 23 * * * gosu symbolicator symbolicator cleanup"'
@@ -158,7 +158,7 @@ services:
     << : *sentry_defaults
     image: sentry-cleanup-onpremise-local
     build:
-      context: ./cron
+      context: cron
       args:
         BASE_IMAGE: 'sentry-onpremise-local'
     command: '"0 0 * * * gosu sentry sentry cleanup --days $SENTRY_EVENT_RETENTION_DAYS"'

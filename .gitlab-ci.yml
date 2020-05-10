@@ -1,13 +1,13 @@
 stages:
-  - docker-swarm-deploy-redis-postgres
+#  - docker-swarm-deploy-redis-postgres
   - docker-swarm-deploy-zipkin
   - docker-swarm-deploy-sentry
   - docker-swarm-deploy-rabbitmq
 
-docker-swarm-deploy-redis-postgres:
-  stage: docker-swarm-deploy-redis-postgres
-  script:
-    - sudo docker stack deploy -c deploy-redis-postgres.yaml socshared
+#docker-swarm-deploy-redis-postgres:
+#  stage: docker-swarm-deploy-redis-postgres
+#  script:
+#    - sudo docker stack deploy -c deploy-redis-postgres.yaml socshared
 
 docker-swarm-deploy-zipkin:
   stage: docker-swarm-deploy-zipkin
