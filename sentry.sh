@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-SERVICE_NAME=socshared_sentry; shift
+SERVICE_NAME=socshared_sentry
 
 TASK_ID=$(sudo docker service ps --filter 'desired-state=running' $SERVICE_NAME -q)
 NODE_ID=$(sudo docker inspect --format '{{ .NodeID }}' $TASK_ID)
