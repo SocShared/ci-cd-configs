@@ -8,6 +8,8 @@ services:
     ports:
      - 9000:9000
     command:
+      - "sentry --help"
+      - "sentry upgrade --help"
       - "sentry upgrade --noinput"
     #  - "sentry createuser --email vladovchinnikov950@gmail.com --password admin --superuser --no-input"
     env_file:
