@@ -9,6 +9,15 @@ services:
     env_file:
       - .env_session_pg
 
+  vk_postgres_db:
+    image: postgres:11
+    deploy:
+      replicas: 1
+    ports:
+      - 5432:5432
+    env_file:
+      - .env_vk_pg
+
 networks:
   default:
     name: socshared
