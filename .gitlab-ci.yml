@@ -10,7 +10,6 @@ docker-swarm-deploy-rabbitmq:
     - touch .env_rabbit
     - echo "RABBITMQ_DEFAULT_USER=admin" >> .env_rabbit
     - echo "RABBITMQ_DEFAULT_PASS=$RABBIT_PASS" >> .env_rabbit
-    - echo "RABBITMQ_DEFAULT_VHOST=/" >> .env_rabbit
     - sudo docker stack deploy -c deploy-rabbitmq.yaml socshared
 
 docker-swarm-deploy-zipkin:
@@ -44,6 +43,5 @@ docker-swarm-deploy-sentry:
     - echo "SENTRY_RABBITMQ_HOST=socshared_rabbitmq" >> .env_sentry
     - echo "SENTRY_RABBITMQ_USERNAME=admin" >> .env_sentry
     - echo "SENTRY_RABBITMQ_PASSWORD=$RABBIT_PASS" >> .env_sentry
-    - echo "SENTRY_RABBITMQ_VHOST=boom" >> .env_sentry
     - echo "SENTRY_REDIS_HOST=sentry_redis" >> .env_sentry
     - sudo docker stack deploy -c deploy-sentry.yaml socshared
