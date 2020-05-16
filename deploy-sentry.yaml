@@ -5,7 +5,7 @@ services:
     image: postgres
     deploy:
       replicas: 1
-    environment:
+    env_file:
       - .env_sentry_pg
 
   sentry:
@@ -14,7 +14,7 @@ services:
       replicas: 1
     ports:
      - 9000:9000
-    environment:
+    env_file:
       - .env_sentry
 
   sentry_cron:
@@ -22,7 +22,7 @@ services:
     deploy:
       replicas: 1
     command: "sentry run cron"
-    environment:
+    env_file:
       - .evn_sentry
 
   sentry_worker:
@@ -30,7 +30,7 @@ services:
     command: "sentry run worker"
     deploy:
       replicas: 1
-    environment:
+    env_file:
       - .evn_sentry
 
 networks:
