@@ -10,13 +10,10 @@ services:
       RABBITMQ_DEFAULT_PASS_FILE: /run/secrets/rabbit_external_secret
     secrets:
       - rabbitmq_external_secret
-      - rabbitmq_file_secret
 
 secrets:
   rabbit_external_secret:
     external: true
-  rabbit_file_secret:
-    file: rabbitmq_file_secret.txt
 
 networks:
   default:
