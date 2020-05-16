@@ -14,7 +14,7 @@ services:
     deploy:
       replicas: 1
     ports:
-      - 5433:5433
+      - 5433:5432
     env_file:
       - .env_vk_pg
 
