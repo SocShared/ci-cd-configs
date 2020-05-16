@@ -1,7 +1,8 @@
 stages:
   - docker-swarm-deploy-rabbitmq
   - docker-swarm-deploy-zipkin
-#  - docker-swarm-deploy-sentry
+  - docker-swarm-deploy-postgres
+  - docker-swarm-deploy-sentry
 
 docker-swarm-deploy-rabbitmq:
   stage: docker-swarm-deploy-rabbitmq
@@ -9,6 +10,7 @@ docker-swarm-deploy-rabbitmq:
     - touch .env_rabbit
     - echo "RABBITMQ_DEFAULT_USER='admin'" >> .env_rabbit
     - echo "RABBITMQ_DEFAULT_PASS=$RABBIT_PASS" >> .env_rabbit
+    - echo "RABBITMQ_DEFAULT_VHOST='/'" >> .env_rabbit
     - sudo docker stack deploy -c deploy-rabbitmq.yaml socshared
 
 docker-swarm-deploy-zipkin:
@@ -18,12 +20,29 @@ docker-swarm-deploy-zipkin:
     - echo "RABBIT_URI=amqp://admin:$RABBIT_PASS@rabbitmq:5672" >> .env_zipkin
     - sudo docker stack deploy -c deploy-zipkin.yaml socshared
 
-#docker-swarm-deploy-postgres:
-#  stage: docker-swarm-deploy-postgres
-#  script:
-#    - sudo docker stack deploy -c deploy-postgres.yaml socshared
-#
-#docker-swarm-deploy-sentry:
-#  stage: docker-swarm-deploy-sentry
-#  script:
-#    - sudo docker stack deploy -c deploy-sentry.yaml socshared
+docker-swarm-deploy-postgres:
+  stage: docker-swarm-deploy-postgres
+  script:
+    - touch .env_session_pg
+    - echo "POSTGRES_USER='admin'" >> .env_session_pg
+    - echo "POSTGRES_PASSWORD='admin'" >> .env.session_pg
+    - echo "POSTGRES_DB='session'" >> .env_session_pg
+    - sudo docker stack deploy -c deploy-postgres.yaml socshared
+
+docker-swarm-deploy-sentry:
+  stage: docker-swarm-deploy-sentry
+  script:
+    - touch .env_sentry_pg
+    - echo "POSTGRES_USER=sentry" >> .env_sentry_pg
+    - echo "POSTGRES_PASSWORD=$SENTRY_DB_PASSWORD" >> .env_sentry_pg
+    - echo "POSTGRES_DB=sentry" >> .env_sentry_pg
+    - touch .evn_sentry
+    - echo "SENTRY_SECRET_KEY:$SENTRY_KEY" >> .env_sentry
+    - echo "SENTRY_POSTGRES_HOST=sentry_postgres" >> .env_sentry
+    - echo "SENTRY_DB_USER=sentry" >> .env_sentry
+    - echo "SENTRY_DB_PASSWORD=$SENTRY_DB_PASSWORD" >> .env_sentry
+    - echo "SENTRY_RABBITMQ_HOST='rabbitmq'" >> .env_sentry
+    - echo "SENTRY_RABBITMQ_USERNAME='admin'" >> .env_sentry
+    - echo "SENTRY_RABBITMQ_PASSWORD=$RABBIT_PASS" >> .env_sentry
+    - echo "SENTRY_RABBITMQ_VHOST='boom'" >> .env_sentry
+    - sudo docker stack deploy -c deploy-sentry.yaml socshared
