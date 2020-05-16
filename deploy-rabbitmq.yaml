@@ -9,8 +9,8 @@ services:
     environment:
       RABBITMQ_DEFAULT_USER: 'admin'
       RABBITMQ_DEFAULT_PASS_FILE: /run/secrets/rabbitmq_external_secret
-      secrets:
-        - rabbitmq_external_secret
+    secrets:
+      - rabbitmq_external_secret
 
 secrets:
   rabbitmq_external_secret:

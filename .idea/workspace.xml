@@ -20,8 +20,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="233fd3fb-9067-4c33-9d66-b66a8adb3e5e" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/deploy-rabbitmq.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/deploy-rabbitmq.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/deploy-zipkin.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/deploy-zipkin.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,7 +68,7 @@
       <workItem from="1589057567261" duration="4171000" />
       <workItem from="1589062500187" duration="1342000" />
       <workItem from="1589097534847" duration="18383000" />
-      <workItem from="1589635342132" duration="5128000" />
+      <workItem from="1589635342132" duration="5210000" />
     </task>
     <servers />
   </component>
