@@ -23,7 +23,7 @@ services:
       replicas: 1
     command: "sentry run cron"
     env_file:
-      - .evn_sentry
+      - .env_sentry
 
   sentry_worker:
     image: sentry
@@ -31,7 +31,7 @@ services:
     deploy:
       replicas: 1
     env_file:
-      - .evn_sentry
+      - .env_sentry
 
 networks:
   default:
