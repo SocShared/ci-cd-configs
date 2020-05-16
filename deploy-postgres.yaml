@@ -18,6 +18,15 @@ services:
     env_file:
       - .env_vk_pg
 
+  fb-postgres-db:
+    image: postgres:11
+    deploy:
+      replicas: 1
+    ports:
+      - 5434:5432
+    env_file:
+      - .env_fb_pg
+
 networks:
   default:
     name: socshared
