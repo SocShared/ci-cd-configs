@@ -6,7 +6,7 @@ services:
       replicas: 1
     ports:
       - 5432:5432
-    env_file:
+    environment:
       - .env_session_pg
 
 networks:
