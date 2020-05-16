@@ -7,7 +7,7 @@ services:
     ports:
       - 9411:9411
     environment:
-      - "RABBIT_URI=amqp://admin:guest@rabbitmq:15672"
+      - "RABBIT_URI=amqp://admin:guest@socshared_rabbitmq:5672"
     secrets:
       - rabbitmq_external_secret
 
