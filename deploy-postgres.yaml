@@ -1,0 +1,19 @@
+version: '3.7'
+services:
+  session-postgres-db:
+    image: postgres:11
+    deploy:
+      replicas: 1
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: 'admin'
+      POSTGRES_PASSWORD: 'admin'
+      POSTGRES_DB: 'session'
+    secrets:
+      - rabbitmq_external_secret
+      - rabbitmq_file_secret
+
+networks:
+  default:
+    name: socshared

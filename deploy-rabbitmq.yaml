@@ -3,8 +3,21 @@ version: '3.7'
 services:
   rabbitmq:
     image: 'bitnami/rabbitmq:latest'
+    restart: 'always'
     ports:
     - 15672:15672
+    environment:
+      RABBITMQ_DEFAULT_USER: 'admin'
+      RABBITMQ_DEFAULT_PASS_FILE: /run/secrets/rabbit_file_secret
+    secrets:
+      - rabbitmq_external_secret
+      - rabbitmq_file_secret
+
+secrets:
+  rabbit_external_secret:
+    external: true
+  rabbit_file_secret:
+    file: rabbitmq_file_secret.txt
 
 networks:
   default:

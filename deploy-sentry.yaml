@@ -1,6 +1,15 @@
 version: '3.7'
 
 services:
+  sentry_postgres:
+    image: postgres
+    deploy:
+      replicas: 1
+    environment:
+      POSTGRES_USER: sentry
+      POSTGRES_PASSWORD: 171322f63734464e9e58deb6e9a419e5
+      POSTGRES_DB: sentry
+
   sentry:
     image: sentry
     deploy:
@@ -8,7 +17,11 @@ services:
     ports:
      - 9000:9000
     env_file:
-      - .env
+      SENTRY_SECRET_KEY: $SENTRY_KEY
+      SENTRY_POSTGRES_HOST: sentry_postgres
+      SENTRY_DB_USER: sentry
+      SENTRY_DB_PASSWORD: 171322f63734464e9e58deb6e9a419e5
+      SENTRY_REDIS_HOST: sentry_redis
 
   sentry_cron:
     image: sentry
@@ -16,7 +29,11 @@ services:
       replicas: 1
     command: "sentry run cron"
     env_file:
-      - .env
+      SENTRY_SECRET_KEY: $SENTRY_KEY
+      SENTRY_POSTGRES_HOST: sentry_postgres
+      SENTRY_DB_USER: sentry
+      SENTRY_DB_PASSWORD: 171322f63734464e9e58deb6e9a419e5
+      SENTRY_REDIS_HOST: sentry_redis
 
   sentry_worker:
     image: sentry
@@ -24,7 +41,11 @@ services:
     deploy:
       replicas: 1
     env_file:
-      - .env
+      SENTRY_SECRET_KEY: $SENTRY_KEY
+      SENTRY_POSTGRES_HOST: sentry_postgres
+      SENTRY_DB_USER: sentry
+      SENTRY_DB_PASSWORD: 171322f63734464e9e58deb6e9a419e5
+      SENTRY_REDIS_HOST: sentry_redis
 
 networks:
   default:
