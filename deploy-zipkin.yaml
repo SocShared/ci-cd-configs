@@ -8,14 +8,12 @@ services:
       - 9411:9411
     environment:
       RABBIT_LOGIN: 'admin'
-      RABBIT_PASSWORD: /run/secrets/rabbit_file_secret
+      RABBIT_PASSWORD: /run/secrets/rabbitmq_external_secret
       RABBIT_URI: amqp://$RABBIT_LOGIN:$RABBIT_PASSWORD@socshared_rabbitmq:15672
 
 secrets:
-  rabbit_external_secret:
+  rabbitmq_external_secret:
     external: true
-  rabbit_file_secret:
-    file: rabbitmq_file_secret.txt
 
 networks:
   default:
