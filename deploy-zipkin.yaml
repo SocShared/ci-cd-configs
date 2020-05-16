@@ -8,7 +8,7 @@ services:
     ports:
       - 9411:9411
     environment:
-      - "RABBIT_PASS=cat /run/secrets/rabbitmq_external_secret"
+      - "RABBIT_PASS=/run/secrets/rabbitmq_external_secret"
       - "RABBIT_URI=amqp://admin:$RABBIT_PASS@rabbitmq:5672"
     secrets:
       - rabbitmq_external_secret
