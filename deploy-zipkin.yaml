@@ -10,6 +10,8 @@ services:
       RABBIT_LOGIN: 'admin'
       RABBIT_PASSWORD: /run/secrets/rabbitmq_external_secret
       RABBIT_URI: amqp://$RABBIT_LOGIN:$RABBIT_PASSWORD@socshared_rabbitmq:15672
+    secrets:
+      - rabbitmq_external_secret
 
 secrets:
   rabbitmq_external_secret:
