@@ -7,7 +7,7 @@ services:
     - 15672:15672
     environment:
       RABBITMQ_DEFAULT_USER: 'admin'
-      RABBITMQ_DEFAULT_PASS_FILE: /run/secrets/rabbit_file_secret
+      RABBITMQ_DEFAULT_PASS_FILE: /run/secrets/rabbit_external_secret
     secrets:
       - rabbitmq_external_secret
       - rabbitmq_file_secret
