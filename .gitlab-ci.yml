@@ -45,4 +45,5 @@ docker-swarm-deploy-sentry:
     - echo "SENTRY_RABBITMQ_USERNAME=admin" >> .env_sentry
     - echo "SENTRY_RABBITMQ_PASSWORD=$RABBIT_PASS" >> .env_sentry
     - echo "SENTRY_RABBITMQ_VHOST=boom" >> .env_sentry
+    - echo "SENTRY_REDIS_HOST=sentry_redis" >> .env_sentry
     - sudo docker stack deploy -c deploy-sentry.yaml socshared

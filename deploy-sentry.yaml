@@ -8,6 +8,11 @@ services:
     env_file:
       - .env_sentry_pg
 
+  sentry_redis:
+    image: redis
+    deploy:
+      replicas: 1
+
   sentry:
     image: sentry
     deploy:
