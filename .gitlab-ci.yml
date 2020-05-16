@@ -25,7 +25,7 @@ docker-swarm-deploy-postgres:
     - touch .env_session_pg
     - echo "POSTGRES_USER=admin" >> .env_session_pg
     - echo "POSTGRES_PASSWORD=admin" >> .env_session_pg
-    - echo "POSTGRES_DB=session" >> .env_session_pg
+    - echo "POSTGRES_DB=auth" >> .env_session_pg
     - touch .env_vk_pg
     - echo "POSTGRES_USER=admin" >>  .env_vk_pg
     - echo "POSTGRES_PASSWORD=admin" >>  .env_vk_pg
