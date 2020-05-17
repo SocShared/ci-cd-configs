@@ -27,6 +27,15 @@ services:
     env_file:
       - .env_fb_pg
 
+  bstat-postgres-db:
+    image: postgres:11
+    deploy:
+      replicas: 1
+    ports:
+      - 5435:5432
+    env_file:
+      - .env_bstat_pg
+
 networks:
   default:
     name: socshared
