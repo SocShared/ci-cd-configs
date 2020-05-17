@@ -37,7 +37,7 @@ docker-swarm-deploy-postgres:
     - touch .env_bstat_pg
     - echo "POSTGRES_USER=admin" >> .env_bstat_pg
     - echo "POSTGRES_PASSWORD=admin" >> .env_bstat_pg
-    - echo "POSTGRES_DB=bstat >> .env_bstat_pg
+    - echo "POSTGRES_DB=bstat" >> .env_bstat_pg
     - sudo docker stack deploy -c deploy-postgres.yaml socshared
 
 #docker-swarm-deploy-sentry:
