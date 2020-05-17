@@ -8,7 +8,6 @@ docker-swarm-deploy-rabbitmq:
   stage: docker-swarm-deploy-rabbitmq
   script:
     - touch .env_rabbit
-    - echo $USER
     - echo "RABBITMQ_DEFAULT_USER=admin" >> .env_rabbit
     - echo "RABBITMQ_DEFAULT_PASS=$RABBIT_PASS" >> .env_rabbit
     - docker stack deploy -c deploy-rabbitmq.yaml socshared
