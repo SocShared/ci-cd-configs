@@ -16,7 +16,7 @@ docker-swarm-deploy-zipkin:
   stage: docker-swarm-deploy-zipkin
   script:
     - touch .env_zipkin
-    - echo "RABBIT_URI=amqp://admin:$RABBIT_PASS@rabbitmq:5672" >> .env_zipkin
+    - echo "RABBIT_URI=amqp://admin:$RABBIT_PASS@socshared_rabbitmq:5672" >> .env_zipkin
     - docker stack deploy -c deploy-zipkin.yaml socshared
 
 docker-swarm-deploy-postgres:
