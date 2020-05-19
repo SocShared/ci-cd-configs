@@ -10,7 +10,3 @@ services:
     network_mode: "host"
     env_file:
       - .env_zipkin
-
-networks:
-  default:
-    name: socshared
