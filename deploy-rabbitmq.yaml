@@ -8,7 +8,3 @@ services:
       - "15672:15672"
     env_file:
       - .env_rabbit
-
-networks:
-  default:
-    name: socshared
