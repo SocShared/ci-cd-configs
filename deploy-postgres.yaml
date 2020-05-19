@@ -35,7 +35,3 @@ services:
       - 5435:5432
     env_file:
       - .env_bstat_pg
-
-networks:
-  default:
-    name: socshared
