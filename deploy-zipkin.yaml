@@ -9,7 +9,6 @@ services:
       - 9411:9411
     env_file:
       - .env_zipkin
-
 networks:
   default:
     name: socshared
