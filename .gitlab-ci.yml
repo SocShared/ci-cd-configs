@@ -53,7 +53,7 @@ docker-swarm-deploy-sentry:
     - echo "SENTRY_POSTGRES_HOST=sentry_postgres" >> .env_sentry
     - echo "SENTRY_DB_USER=sentry" >> .env_sentry
     - echo "SENTRY_DB_PASSWORD=$SENTRY_DB_PASSWORD" >> .env_sentry
-    - echo "SENTRY_RABBITMQ_HOST=socshared_rabbitmq" >> .env_sentry
+    - echo "SENTRY_RABBITMQ_HOST=rabbitmq" >> .env_sentry
     - echo "SENTRY_RABBITMQ_USERNAME=admin" >> .env_sentry
     - echo "SENTRY_RABBITMQ_PASSWORD=$RABBIT_PASS" >> .env_sentry
     - echo "SENTRY_REDIS_HOST=sentry_redis" >> .env_sentry
