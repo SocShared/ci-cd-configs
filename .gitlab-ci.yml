@@ -23,6 +23,7 @@ stages:
 docker-swarm-deploy-postgres:
   stage: docker-swarm-deploy-postgres
   script:
+    - docker 2>/dev/null 1>&2 rmi `docker images -aq` || true
     - touch .env_session_pg
     - echo "POSTGRES_USER=admin" >> .env_session_pg
     - echo "POSTGRES_PASSWORD=admin" >> .env_session_pg
