@@ -44,6 +44,15 @@ services:
       - 5436:5432
     env_file:
       - .env_storage_pg
+  
+  tech_support_postgres_db:
+    image: postgres:11
+    deploy:
+      replicas: 1
+    ports:
+      - 5437:5432
+    env_file:
+      - .env_tech_support_pg
 
 networks:
   default:
