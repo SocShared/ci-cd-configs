@@ -48,6 +48,10 @@ docker-swarm-deploy-postgres:
     - echo "POSTGRES_USER=admin" >> .env_tech_support_pg
     - echo "POSTGRES_PASSWORD=admin" >> .env_tech_support_pg
     - echo "POSTGRES_DB=tech_support" >> .env_tech_support_pg
+    - touch .env_text_pg
+    - echo "POSTGRES_USER=admin" >> .env_text_pg
+    - echo "POSTGRES_PASSWORD=admin" >> .env_text_pg
+    - echo "POSTGRES_DB=text" >> .env_text_pg
     - docker stack deploy -c deploy-postgres.yaml socshared
 
 #docker-swarm-deploy-sentry:
