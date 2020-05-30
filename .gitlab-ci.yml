@@ -63,7 +63,7 @@ docker-swarm-deploy-sentry:
   script:
     - touch .env_sentry
     - echo "SENTRY_SECRET_KEY=$SENTRY_KEY" >> .env_sentry
-    - echo "SENTRY_POSTGRES_HOST=pg.socshared.ml:5533" >> .env_sentry
+    - echo "SENTRY_POSTGRES_HOST=35.217.25.46:5533" >> .env_sentry
     - echo "SENTRY_DB_USER=admin" >> .env_sentry
     - echo "SENTRY_DB_PASSWORD=admin" >> .env_sentry
     - echo "SENTRY_RABBITMQ_HOST=socshared_rabbitmq" >> .env_sentry
