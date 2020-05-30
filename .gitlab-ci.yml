@@ -55,20 +55,24 @@ stages:
 #    - echo "POSTGRES_USER=admin" >> .env_pg
 #    - echo "POSTGRES_PASSWORD=admin" >> .env_pg
 #    - echo "POSTGRES_MULTIPLE_DATABASES=auth,vk,fb,bstat,storage,sentry" >> .env_pg
-#    - docker-compose -f docker-compose-postgres.yaml down
-#    - docker-compose -f docker-compose-postgres.yaml up -d
+#    - docker-compose -f docker-compose.yaml down
+#    - docker-compose -f docker-compose.yaml up -d
 
 docker-swarm-deploy-sentry:
   stage: docker-swarm-deploy-sentry
   script:
+    - docker 2>/dev/null 1>&2 rmi `docker images -aq` || true
+    - touch .env_pg
+    - echo "POSTGRES_USER=admin" >> .env_pg
+    - echo "POSTGRES_PASSWORD=admin" >> .env_pg
+    - echo "POSTGRES_MULTIPLE_DATABASES=auth,vk,fb,bstat,storage,sentry" >> .env_pg
     - touch .env_sentry
     - echo "SENTRY_SECRET_KEY=$SENTRY_KEY" >> .env_sentry
-    - echo "SENTRY_POSTGRES_HOST=35.217.25.46" >> .env_sentry
-    - echo "SENTRY_POSTGRES_PORT=5533" >> .env_sentry
+    - echo "SENTRY_POSTGRES_HOST=postgres_db" >> .env_sentry
     - echo "SENTRY_DB_USER=admin" >> .env_sentry
     - echo "SENTRY_DB_PASSWORD=admin" >> .env_sentry
-    - echo "SENTRY_RABBITMQ_HOST=socshared_rabbitmq" >> .env_sentry
+    - echo "SENTRY_RABBITMQ_HOST=rabbitmq.socshared.ml" >> .env_sentry
     - echo "SENTRY_RABBITMQ_USERNAME=admin" >> .env_sentry
     - echo "SENTRY_RABBITMQ_PASSWORD=$RABBIT_PASS" >> .env_sentry
     - echo "SENTRY_REDIS_HOST=sentry_redis" >> .env_sentry
-    - docker stack deploy -c deploy-sentry.yaml socshared
+    - docker-compose -f docker-compose.yaml down

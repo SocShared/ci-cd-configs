@@ -1,24 +1,27 @@
-version: '3.7'
-
+version: '3.3'
 services:
+
+  postgres_db:
+    image: postgres:11
+    ports:
+      - 5533:5432
+    volumes:
+      - ./pg-init-scripts:/docker-entrypoint-initdb.d
+    env_file:
+      - .env_pg
+
   sentry_redis:
     image: redis
-    deploy:
-      replicas: 1
 
   sentry:
     image: sentry
-    deploy:
-      replicas: 1
     ports:
-     - 9000:9000
+      - 9000:9000
     env_file:
       - .env_sentry
 
   sentry_cron:
     image: sentry
-    deploy:
-      replicas: 1
     command: "sentry run cron"
     env_file:
       - .env_sentry
@@ -26,11 +29,5 @@ services:
   sentry_worker:
     image: sentry
     command: "sentry run worker"
-    deploy:
-      replicas: 1
     env_file:
       - .env_sentry
-
-networks:
-  default:
-    name: socshared
