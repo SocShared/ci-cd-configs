@@ -76,3 +76,4 @@ docker-swarm-deploy-sentry:
     - echo "SENTRY_RABBITMQ_PASSWORD=$RABBIT_PASS" >> .env_sentry
     - echo "SENTRY_REDIS_HOST=sentry_redis" >> .env_sentry
     - docker-compose -f docker-compose.yaml down
+    - docker-compose -f docker-compose.yaml up -d
