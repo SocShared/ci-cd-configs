@@ -1,7 +1,8 @@
 stages:
 #  - docker-swarm-deploy-rabbitmq
 #  - docker-swarm-deploy-zipkin
-  - docker-swarm-deploy-postgres
+#  - docker-swarm-deploy-postgres
+  - docker-compose-postgres-deploy
 #  - docker-swarm-deploy-sentry
 
 #docker-swarm-deploy-rabbitmq:
@@ -20,31 +21,41 @@ stages:
 #    - echo "RABBIT_URI=amqp://admin:$RABBIT_PASS@rabbitmq:5672" >> .env_zipkin
 #    - docker stack deploy -c deploy-zipkin.yaml socshared
 
-docker-swarm-deploy-postgres:
-  stage: docker-swarm-deploy-postgres
+#docker-swarm-deploy-postgres:
+#  stage: docker-swarm-deploy-postgres
+#  script:
+#    - docker 2>/dev/null 1>&2 rmi `docker images -aq` || true
+#    - touch .env_session_pg
+#    - echo "POSTGRES_USER=admin" >> .env_session_pg
+#    - echo "POSTGRES_PASSWORD=admin" >> .env_session_pg
+#    - echo "POSTGRES_DB=auth" >> .env_session_pg
+#    - touch .env_vk_pg
+#    - echo "POSTGRES_USER=admin" >>  .env_vk_pg
+#    - echo "POSTGRES_PASSWORD=admin" >>  .env_vk_pg
+#    - echo "POSTGRES_DB=vk" >> .env_vk_pg
+#    - touch .env_fb_pg
+#    - echo "POSTGRES_USER=admin" >> .env_fb_pg
+#    - echo "POSTGRES_PASSWORD=admin" >> .env_fb_pg
+#    - echo "POSTGRES_DB=fb" >> .env_fb_pg
+#    - touch .env_bstat_pg
+#    - echo "POSTGRES_USER=admin" >> .env_bstat_pg
+#    - echo "POSTGRES_PASSWORD=admin" >> .env_bstat_pg
+#    - echo "POSTGRES_DB=bstat" >> .env_bstat_pg
+#    - touch .env_storage_pg
+#    - echo "POSTGRES_USER=admin" >> .env_storage_pg
+#    - echo "POSTGRES_PASSWORD=admin" >> .env_storage_pg
+#    - echo "POSTGRES_DB=storage" >> .env_storage_pg
+#    - docker stack deploy -c deploy-postgres.yaml socshared
+
+docker-compose-postgres-deploy:
+  stage: docker-compose-postgres-deploy
   script:
     - docker 2>/dev/null 1>&2 rmi `docker images -aq` || true
-    - touch .env_session_pg
-    - echo "POSTGRES_USER=admin" >> .env_session_pg
-    - echo "POSTGRES_PASSWORD=admin" >> .env_session_pg
+    - touch .env_pg
+    - echo "POSTGRES_USER=admin" >> .env_pg
+    - echo "POSTGRES_PASSWORD=admin" >> .env_pg
     - echo "POSTGRES_DB=auth" >> .env_session_pg
-    - touch .env_vk_pg
-    - echo "POSTGRES_USER=admin" >>  .env_vk_pg
-    - echo "POSTGRES_PASSWORD=admin" >>  .env_vk_pg
-    - echo "POSTGRES_DB=vk" >> .env_vk_pg
-    - touch .env_fb_pg
-    - echo "POSTGRES_USER=admin" >> .env_fb_pg
-    - echo "POSTGRES_PASSWORD=admin" >> .env_fb_pg
-    - echo "POSTGRES_DB=fb" >> .env_fb_pg
-    - touch .env_bstat_pg
-    - echo "POSTGRES_USER=admin" >> .env_bstat_pg
-    - echo "POSTGRES_PASSWORD=admin" >> .env_bstat_pg
-    - echo "POSTGRES_DB=bstat" >> .env_bstat_pg
-    - touch .env_storage_pg
-    - echo "POSTGRES_USER=admin" >> .env_storage_pg
-    - echo "POSTGRES_PASSWORD=admin" >> .env_storage_pg
-    - echo "POSTGRES_DB=storage" >> .env_storage_pg
-    - docker stack deploy -c deploy-postgres.yaml socshared
+    - docker-compose up -c docker-compose-postgres.yaml
 
 #docker-swarm-deploy-sentry:
 #  stage: docker-swarm-deploy-sentry
