@@ -3,7 +3,7 @@ stages:
 #  - docker-swarm-deploy-zipkin
 #  - docker-swarm-deploy-postgres
   - docker-compose-postgres-deploy
-#  - docker-swarm-deploy-sentry
+  - docker-swarm-deploy-sentry
 
 #docker-swarm-deploy-rabbitmq:
 #  stage: docker-swarm-deploy-rabbitmq
@@ -55,22 +55,19 @@ docker-compose-postgres-deploy:
     - echo "POSTGRES_USER=admin" >> .env_pg
     - echo "POSTGRES_PASSWORD=admin" >> .env_pg
     - echo "POSTGRES_DB=auth" >> .env_pg
+    - echo "POSTGRES_MULTIPLE_DATABASES=auth,vk,fb,bstat,storage,sentry"
     - docker-compose -f docker-compose-postgres.yaml up -d
 
-#docker-swarm-deploy-sentry:
-#  stage: docker-swarm-deploy-sentry
-#  script:
-#    - touch .env_sentry_pg
-#    - echo "POSTGRES_USER=sentry" >> .env_sentry_pg
-#    - echo "POSTGRES_PASSWORD=$SENTRY_DB_PASSWORD" >> .env_sentry_pg
-#    - echo "POSTGRES_DB=sentry" >> .env_sentry_pg
-#    - touch .env_sentry
-#    - echo "SENTRY_SECRET_KEY=$SENTRY_KEY" >> .env_sentry
-#    - echo "SENTRY_POSTGRES_HOST=sentry_postgres" >> .env_sentry
-#    - echo "SENTRY_DB_USER=sentry" >> .env_sentry
-#    - echo "SENTRY_DB_PASSWORD=$SENTRY_DB_PASSWORD" >> .env_sentry
-#    - echo "SENTRY_RABBITMQ_HOST=socshared_rabbitmq" >> .env_sentry
-#    - echo "SENTRY_RABBITMQ_USERNAME=admin" >> .env_sentry
-#    - echo "SENTRY_RABBITMQ_PASSWORD=$RABBIT_PASS" >> .env_sentry
-#    - echo "SENTRY_REDIS_HOST=sentry_redis" >> .env_sentry
-#    - docker stack deploy -c deploy-sentry.yaml socshared
+docker-swarm-deploy-sentry:
+  stage: docker-swarm-deploy-sentry
+  script:
+    - touch .env_sentry
+    - echo "SENTRY_SECRET_KEY=$SENTRY_KEY" >> .env_sentry
+    - echo "SENTRY_POSTGRES_HOST=pg.socshared.ml:5533" >> .env_sentry
+    - echo "SENTRY_DB_USER=admin" >> .env_sentry
+    - echo "SENTRY_DB_PASSWORD=admin" >> .env_sentry
+    - echo "SENTRY_RABBITMQ_HOST=socshared_rabbitmq" >> .env_sentry
+    - echo "SENTRY_RABBITMQ_USERNAME=admin" >> .env_sentry
+    - echo "SENTRY_RABBITMQ_PASSWORD=$RABBIT_PASS" >> .env_sentry
+    - echo "SENTRY_REDIS_HOST=sentry_redis" >> .env_sentry
+    - docker stack deploy -c deploy-sentry.yaml socshared
