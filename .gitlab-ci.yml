@@ -54,7 +54,7 @@ docker-compose-postgres-deploy:
     - touch .env_pg
     - echo "POSTGRES_USER=admin" >> .env_pg
     - echo "POSTGRES_PASSWORD=admin" >> .env_pg
-    - echo "POSTGRES_DB=auth" >> .env_session_pg
+    - echo "POSTGRES_DB=auth" >> .env_pg
     - docker-compose up -c docker-compose-postgres.yaml
 
 #docker-swarm-deploy-sentry:
