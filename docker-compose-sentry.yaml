@@ -1,42 +1,40 @@
 version: '3.7'
-services:
 
-  sentry-postgres:
+services:
+  sentry_postgres:
     image: postgres
+    deploy:
+      replicas: 1
     env_file:
       - .env_sentry_pg
 
-  sentry-redis:
+  sentry_redis:
     image: redis
+    deploy:
+      replicas: 1
 
   sentry:
-    container_name: socshared_sentry
-    image: sentry:9
-    links:
-      - sentry-redis
-      - sentry-postgres
-#    volumes:
-#      - ./sentry-init-scripts:/docker-entrypoint-initsentry.d
+    image: sentry:9.1.2
+    deploy:
+      replicas: 1
     ports:
       - 9000:9000
     env_file:
       - .env_sentry
 
-  sentry-cron:
-    image: sentry:9
+  sentry_cron:
+    image: sentry:9.1.2
+    deploy:
+      replicas: 1
     command: "sentry run cron"
-    links:
-      - sentry-redis
-      - sentry-postgres
     env_file:
       - .env_sentry
 
-  sentry-worker:
-    image: sentry:9
+  sentry_worker:
+    image: sentry:9.1.2
     command: "sentry run worker"
-    links:
-      - sentry-redis
-      - sentry-postgres
+    deploy:
+      replicas: 1
     env_file:
       - .env_sentry
 

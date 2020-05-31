@@ -2,8 +2,9 @@ stages:
 #  - docker-swarm-deploy-rabbitmq
 #  - docker-swarm-deploy-zipkin
 #  - docker-swarm-deploy-postgres
-  - docker-compose-postgres-deploy
-  - docker-compose-deploy-sentry
+#  - docker-compose-postgres-deploy
+#  - docker-compose-deploy-sentry
+  - docker-swarm-deploy-sentry
 
 #docker-swarm-deploy-rabbitmq:
 #  stage: docker-swarm-deploy-rabbitmq
@@ -58,26 +59,45 @@ stages:
 #    - docker-compose -f docker-compose-postgres.yaml down
 #    - docker-compose -f docker-compose-postgres.yaml up -d
 
-docker-compose-deploy-sentry:
-  stage: docker-compose-deploy-sentry
+#docker-compose-deploy-sentry:
+#  stage: docker-compose-deploy-sentry
+#  script:
+#    - touch .env_sentry_pg
+#    - echo "POSTGRES_USER=sentry" >> .env_sentry_pg
+#    - echo "POSTGRES_PASSWORD=sentry" >> .env_sentry_pg
+#    - echo "POSTGRES_DB=sentry" >> .env_sentry_pg
+#    - touch .env_sentry
+#    - echo "SENTRY_SECRET_KEY=$SENTRY_KEY" >> .env_sentry
+#    - echo "SENTRY_POSTGRES_HOST=sentry-postgres" >> .env_sentry
+#   # - echo "SENTRY_POSTGRES_PORT=5533" >> .env_sentry
+#    - echo "SENTRY_DB_NAME=sentry" >> .env_sentry
+#    - echo "SENTRY_DB_USER=sentry" >> .env_sentry
+#    - echo "SENTRY_DB_PASSWORD=sentry" >> .env_sentry
+#    - echo "SENTRY_RABBITMQ_HOST=rabbitmq.socshared.ml" >> .env_sentry
+#    - echo "SENTRY_RABBITMQ_USERNAME=admin" >> .env_sentry
+#    - echo "SENTRY_RABBITMQ_PASSWORD=$RABBIT_PASS" >> .env_sentry
+#    - echo "SENTRY_REDIS_HOST=sentry-redis" >> .env_sentry
+#    - docker stack deploy -c docker-compose-sentry.yaml socshared
+##    - docker-compose -f docker-compose-sentry.yaml down
+##    - docker-compose -f docker-compose-sentry.yaml up -d
+##    - docker exec socshared_sentry
+##    - docker exec socshared_sentry sentry createuser --email admin@local.ru --password Admin12345 --superuser --no-input
+
+docker-swarm-deploy-sentry:
+  stage: docker-swarm-deploy-sentry
   script:
     - touch .env_sentry_pg
     - echo "POSTGRES_USER=sentry" >> .env_sentry_pg
-    - echo "POSTGRES_PASSWORD=sentry" >> .env_sentry_pg
+    - echo "POSTGRES_PASSWORD=$SENTRY_DB_PASSWORD" >> .env_sentry_pg
     - echo "POSTGRES_DB=sentry" >> .env_sentry_pg
     - touch .env_sentry
     - echo "SENTRY_SECRET_KEY=$SENTRY_KEY" >> .env_sentry
-    - echo "SENTRY_POSTGRES_HOST=sentry-postgres" >> .env_sentry
-   # - echo "SENTRY_POSTGRES_PORT=5533" >> .env_sentry
-    - echo "SENTRY_DB_NAME=sentry" >> .env_sentry
+    - echo "SENTRY_POSTGRES_HOST=sentry_postgres" >> .env_sentry
     - echo "SENTRY_DB_USER=sentry" >> .env_sentry
-    - echo "SENTRY_DB_PASSWORD=sentry" >> .env_sentry
-    - echo "SENTRY_RABBITMQ_HOST=rabbitmq.socshared.ml" >> .env_sentry
+    - echo "SENTRY_DB_PASSWORD=$SENTRY_DB_PASSWORD" >> .env_sentry
+    - echo "SENTRY_RABBITMQ_HOST=socshared_rabbitmq" >> .env_sentry
     - echo "SENTRY_RABBITMQ_USERNAME=admin" >> .env_sentry
     - echo "SENTRY_RABBITMQ_PASSWORD=$RABBIT_PASS" >> .env_sentry
-    - echo "SENTRY_REDIS_HOST=sentry-redis" >> .env_sentry
-    - docker stack deploy -c docker-compose-sentry.yaml socshared
-#    - docker-compose -f docker-compose-sentry.yaml down
-#    - docker-compose -f docker-compose-sentry.yaml up -d
-#    - docker exec socshared_sentry
-#    - docker exec socshared_sentry sentry createuser --email admin@local.ru --password Admin12345 --superuser --no-input
+    - echo "SENTRY_REDIS_HOST=sentry_redis" >> .env_sentry
+    - docker stack deploy -c deploy-sentry.yaml socshared
+
