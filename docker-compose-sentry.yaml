@@ -11,7 +11,7 @@ services:
 
   sentry:
     container_name: socshared_sentry
-    image: sentry
+    image: sentry:9
     links:
       - sentry-redis
       - sentry-postgres
@@ -23,7 +23,7 @@ services:
       - .env_sentry
 
   sentry-cron:
-    image: sentry
+    image: sentry:9
     command: "sentry run cron"
     links:
       - sentry-redis
@@ -32,7 +32,7 @@ services:
       - .env_sentry
 
   sentry-worker:
-    image: sentry
+    image: sentry:9
     command: "sentry run worker"
     links:
       - sentry-redis
