@@ -74,7 +74,8 @@ docker-compose-deploy-sentry:
     - echo "SENTRY_RABBITMQ_USERNAME=admin" >> .env_sentry
     - echo "SENTRY_RABBITMQ_PASSWORD=$RABBIT_PASS" >> .env_sentry
     - echo "SENTRY_REDIS_HOST=sentry-redis" >> .env_sentry
-    - docker-compose -f docker-compose-sentry.yaml down
-    - docker-compose -f docker-compose-sentry.yaml up -d
-    - docker exec socshared_sentry sentry upgrade --noinput
-    - docker exec socshared_sentry sentry createuser --email admin@local.ru --password Admin12345 --superuser --no-input
+    - docker stack deploy -c docker-compose-sentry.yaml socshared
+#    - docker-compose -f docker-compose-sentry.yaml down
+#    - docker-compose -f docker-compose-sentry.yaml up -d
+#    - docker exec socshared_sentry
+#    - docker exec socshared_sentry sentry createuser --email admin@local.ru --password Admin12345 --superuser --no-input

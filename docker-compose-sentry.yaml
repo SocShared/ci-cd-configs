@@ -5,13 +5,9 @@ services:
     image: postgres
     env_file:
       - .env_sentry_pg
-    networks:
-      - sentry
 
   sentry-redis:
     image: redis
-    networks:
-      - sentry
 
   sentry:
     container_name: socshared_sentry
@@ -19,12 +15,11 @@ services:
     links:
       - sentry-redis
       - sentry-postgres
+    command: "sentry upgrade --noinput"
     ports:
       - 9000:9000
     env_file:
       - .env_sentry
-    networks:
-      - sentry
 
   sentry-cron:
     image: sentry
@@ -34,8 +29,6 @@ services:
       - sentry-postgres
     env_file:
       - .env_sentry
-    networks:
-      - sentry
 
   sentry-worker:
     image: sentry
@@ -45,8 +38,7 @@ services:
       - sentry-postgres
     env_file:
       - .env_sentry
-    networks:
-      - sentry
 
 networks:
-  sentry:
+  default:
+    name: socshared
