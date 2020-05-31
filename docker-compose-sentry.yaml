@@ -47,3 +47,6 @@ services:
       - .env_sentry
     networks:
       - sentry
+
+networks:
+  sentry:
