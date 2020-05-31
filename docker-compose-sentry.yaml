@@ -1,10 +1,10 @@
 version: '3.7'
 services:
 
-  sentry-postgres:
-    image: postgres
-    env_file:
-      - .env_sentry_pg
+#  sentry-postgres:
+#    image: postgres
+#    env_file:
+#      - .env_sentry_pg
 
   sentry-redis:
     image: redis
@@ -14,7 +14,7 @@ services:
     image: sentry
     links:
       - sentry-redis
-      - sentry-postgres
+#      - sentry-postgres
     volumes:
       - ./sentry-init-scripts:/docker-entrypoint-initsentry.d
     ports:
@@ -27,7 +27,7 @@ services:
     command: "sentry run cron"
     links:
       - sentry-redis
-      - sentry-postgres
+#      - sentry-postgres
     env_file:
       - .env_sentry
 
@@ -36,7 +36,7 @@ services:
     command: "sentry run worker"
     links:
       - sentry-redis
-      - sentry-postgres
+#      - sentry-postgres
     env_file:
       - .env_sentry
 
