@@ -1,34 +1,41 @@
 version: '3.3'
 services:
 
-  postgres_db:
-    image: postgres:11
-    ports:
-      - 5533:5432
-    volumes:
-      - ./pg-init-scripts:/docker-entrypoint-initdb.d
+  sentry-postgres:
+    image: postgres
     env_file:
-      - .env_pg
+      - .env_sentry_pg
+    volumes:
+      - pgdb:/var/lib/postgresql/data
 
-  sentry_redis:
+  sentry-redis:
     image: redis
 
   sentry:
     container_name: socshared_sentry
     image: sentry
+    links:
+      - sentry-redis
+      - sentry-postgres
     ports:
       - 9000:9000
     env_file:
       - .env_sentry
 
-  sentry_cron:
+  sentry-cron:
     image: sentry
     command: "sentry run cron"
+    links:
+      - sentry-redis
+      - sentry-postgres
     env_file:
       - .env_sentry
 
-  sentry_worker:
+  sentry-worker:
     image: sentry
     command: "sentry run worker"
+    links:
+      - sentry-redis
+      - sentry-postgres
     env_file:
       - .env_sentry

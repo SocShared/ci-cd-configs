@@ -3,7 +3,7 @@ stages:
 #  - docker-swarm-deploy-zipkin
 #  - docker-swarm-deploy-postgres
   - docker-compose-postgres-deploy
-  - docker-swarm-deploy-sentry
+  - docker-compose-deploy-sentry
 
 #docker-swarm-deploy-rabbitmq:
 #  stage: docker-swarm-deploy-rabbitmq
@@ -54,28 +54,27 @@ stages:
 #    - touch .env_pg
 #    - echo "POSTGRES_USER=admin" >> .env_pg
 #    - echo "POSTGRES_PASSWORD=admin" >> .env_pg
-#    - echo "POSTGRES_MULTIPLE_DATABASES=auth,vk,fb,bstat,storage,sentry" >> .env_pg
-#    - docker-compose -f docker-compose.yaml down
-#    - docker-compose -f docker-compose.yaml up -d
+#    - echo "POSTGRES_MULTIPLE_DATABASES=auth,vk,fb,bstat,storage,text,tech_support" >> .env_pg
+#    - docker-compose -f docker-compose-postgres.yaml down
+#    - docker-compose -f docker-compose-postgres.yaml up -d
 
-docker-swarm-deploy-sentry:
-  stage: docker-swarm-deploy-sentry
+docker-compose-deploy-sentry:
+  stage: docker-compose-deploy-sentry
   script:
-    - docker 2>/dev/null 1>&2 rmi `docker images -aq` || true
-    - touch .env_pg
-    - echo "POSTGRES_USER=admin" >> .env_pg
-    - echo "POSTGRES_PASSWORD=admin" >> .env_pg
-    - echo "POSTGRES_MULTIPLE_DATABASES=auth,vk,fb,bstat,storage,sentry,tech_support" >> .env_pg
+    - touch .env_sentry_pg
+    - echo "POSTGRES_USER=sentry" >> .env_sentry_pg
+    - echo "POSTGRES_PASSWORD=sentry" >> .env_sentry_pg
+    - echo "POSTGRES_DB=sentry" >> .env_sentry_pg
     - touch .env_sentry
     - echo "SENTRY_SECRET_KEY=$SENTRY_KEY" >> .env_sentry
-    - echo "SENTRY_POSTGRES_HOST=postgres_db" >> .env_sentry
-    - echo "SENTRY_DB_USER=admin" >> .env_sentry
-    - echo "SENTRY_DB_PASSWORD=admin" >> .env_sentry
+    - echo "SENTRY_POSTGRES_HOST=sentry-postgres" >> .env_sentry
+    - echo "SENTRY_DB_USER=sentry" >> .env_sentry
+    - echo "SENTRY_DB_PASSWORD=sentry" >> .env_sentry
     - echo "SENTRY_RABBITMQ_HOST=rabbitmq.socshared.ml" >> .env_sentry
     - echo "SENTRY_RABBITMQ_USERNAME=admin" >> .env_sentry
     - echo "SENTRY_RABBITMQ_PASSWORD=$RABBIT_PASS" >> .env_sentry
     - echo "SENTRY_REDIS_HOST=sentry_redis" >> .env_sentry
-#    - docker-compose -f docker-compose.yaml down
-#    - docker-compose -f docker-compose.yaml up -d
-#    - docker exec socshared_sentry sentry upgrade --noinput
+    - docker-compose -f docker-compose-sentry.yaml down
+    - docker-compose -f docker-compose-sentry.yaml up -d
+    - docker exec socshared_sentry sentry upgrade --noinput
     - docker exec socshared_sentry sentry createuser --email admin@local.ru --password Admin12345 --superuser --no-input
