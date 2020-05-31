@@ -5,8 +5,6 @@ services:
     image: postgres
     env_file:
       - .env_sentry_pg
-    volumes:
-      - pgdb:/var/lib/postgresql/data
 
   sentry-redis:
     image: redis
