@@ -37,3 +37,7 @@ services:
       - sentry-postgres
     env_file:
       - .env_sentry
+
+networks:
+  default:
+    name: socshared_sentry
