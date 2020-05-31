@@ -1,12 +1,12 @@
 version: '3.7'
 
 services:
-  sentry_postgres:
-    image: postgres
-    deploy:
-      replicas: 1
-    env_file:
-      - .env_sentry_pg
+#  sentry_postgres:
+#    image: postgres
+#    deploy:
+#      replicas: 1
+#    env_file:
+#      - .env_sentry_pg
 
   sentry_redis:
     image: redis
