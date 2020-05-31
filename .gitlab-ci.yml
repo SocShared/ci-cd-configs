@@ -2,7 +2,7 @@ stages:
 #  - docker-swarm-deploy-rabbitmq
 #  - docker-swarm-deploy-zipkin
 #  - docker-swarm-deploy-postgres
-#  - docker-compose-postgres-deploy
+  - docker-compose-postgres-deploy
 #  - docker-compose-deploy-sentry
   - docker-swarm-deploy-sentry
 
@@ -93,7 +93,7 @@ docker-swarm-deploy-sentry:
     - touch .env_sentry
     - echo "SENTRY_SECRET_KEY=$SENTRY_KEY" >> .env_sentry
     - echo "SENTRY_POSTGRES_HOST=pg.socshared.ml" >> .env_sentry
-    - echo "SENTRY_POSTGRES_PORT=pg.socshared.ml" >> .env_sentry
+    - echo "SENTRY_POSTGRES_PORT=5533" >> .env_sentry
     - echo "SENTRY_DB_USER=admin" >> .env_sentry
     - echo "SENTRY_DB_PASSWORD=admin" >> .env_sentry
     - echo "SENTRY_REDIS_HOST=sentry_redis" >> .env_sentry
