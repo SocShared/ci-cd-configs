@@ -15,7 +15,7 @@ services:
     links:
       - sentry-redis
       - sentry-postgres
-    command: "sentry upgrade --noinput"
+    command: "sentry upgrade --noinput & sentry createuser --email admin@local.ru --password Admin12345 --superuser --no-input"
     ports:
       - 9000:9000
     env_file:
