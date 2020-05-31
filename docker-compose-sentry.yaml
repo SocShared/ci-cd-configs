@@ -15,7 +15,8 @@ services:
     links:
       - sentry-redis
       - sentry-postgres
-    command: "sentry upgrade --noinput & sentry createuser --email admin@local.ru --password Admin12345 --superuser --no-input"
+    volumes:
+      - ./sentry-init-scripts:/docker-entrypoint-initsentry.d
     ports:
       - 9000:9000
     env_file:
