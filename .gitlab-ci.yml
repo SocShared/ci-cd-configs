@@ -73,7 +73,7 @@ docker-compose-deploy-sentry:
     - echo "SENTRY_RABBITMQ_HOST=rabbitmq.socshared.ml" >> .env_sentry
     - echo "SENTRY_RABBITMQ_USERNAME=admin" >> .env_sentry
     - echo "SENTRY_RABBITMQ_PASSWORD=$RABBIT_PASS" >> .env_sentry
-    - echo "SENTRY_REDIS_HOST=sentry_redis" >> .env_sentry
+    - echo "SENTRY_REDIS_HOST=sentry-redis" >> .env_sentry
     - docker-compose -f docker-compose-sentry.yaml down
     - docker-compose -f docker-compose-sentry.yaml up -d
     - docker exec socshared_sentry sentry upgrade --noinput
