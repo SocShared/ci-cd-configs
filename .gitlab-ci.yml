@@ -65,7 +65,7 @@ docker-swarm-deploy-sentry:
     - touch .env_pg
     - echo "POSTGRES_USER=admin" >> .env_pg
     - echo "POSTGRES_PASSWORD=admin" >> .env_pg
-    - echo "POSTGRES_MULTIPLE_DATABASES=auth,vk,fb,bstat,storage,sentry" >> .env_pg
+    - echo "POSTGRES_MULTIPLE_DATABASES=auth,vk,fb,bstat,storage,sentry,tech_support" >> .env_pg
     - touch .env_sentry
     - echo "SENTRY_SECRET_KEY=$SENTRY_KEY" >> .env_sentry
     - echo "SENTRY_POSTGRES_HOST=postgres_db" >> .env_sentry
@@ -77,3 +77,4 @@ docker-swarm-deploy-sentry:
     - echo "SENTRY_REDIS_HOST=sentry_redis" >> .env_sentry
     - docker-compose -f docker-compose.yaml down
     - docker-compose -f docker-compose.yaml up -d
+    - docker-compose exec sentry sentry upgrade --noinput
