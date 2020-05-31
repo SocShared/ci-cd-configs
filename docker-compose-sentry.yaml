@@ -39,5 +39,4 @@ services:
       - .env_sentry
 
 networks:
-  default:
-    name: socshared_sentry
+  name: socshared_sentry
