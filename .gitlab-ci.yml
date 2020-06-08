@@ -1,24 +1,24 @@
 stages:
-#  - docker-swarm-deploy-rabbitmq
-#  - docker-swarm-deploy-zipkin
+  - docker-swarm-deploy-rabbitmq
+  - docker-swarm-deploy-zipkin
   - docker-swarm-deploy-postgres
   - docker-swarm-deploy-sentry
 
-#docker-swarm-deploy-rabbitmq:
-#  stage: docker-swarm-deploy-rabbitmq
-#  script:
-#    - docker 2>/dev/null 1>&2 rmi `docker images -aq` || true
-#    - touch .env_rabbit
-#    - echo "RABBITMQ_DEFAULT_USER=admin" >> .env_rabbit
-#    - echo "RABBITMQ_DEFAULT_PASS=$RABBIT_PASS" >> .env_rabbit
-#    - docker stack deploy -c deploy-rabbitmq.yaml socshared
-#
-#docker-swarm-deploy-zipkin:
-#  stage: docker-swarm-deploy-zipkin
-#  script:
-#    - touch .env_zipkin
-#    - echo "RABBIT_URI=amqp://admin:$RABBIT_PASS@rabbitmq:5672" >> .env_zipkin
-#    - docker stack deploy -c deploy-zipkin.yaml socshared
+docker-swarm-deploy-rabbitmq:
+  stage: docker-swarm-deploy-rabbitmq
+  script:
+    - docker 2>/dev/null 1>&2 rmi `docker images -aq` || true
+    - touch .env_rabbit
+    - echo "RABBITMQ_DEFAULT_USER=admin" >> .env_rabbit
+    - echo "RABBITMQ_DEFAULT_PASS=$RABBIT_PASS" >> .env_rabbit
+    - docker stack deploy -c deploy-rabbitmq.yaml socshared
+
+docker-swarm-deploy-zipkin:
+  stage: docker-swarm-deploy-zipkin
+  script:
+    - touch .env_zipkin
+    - echo "RABBIT_URI=amqp://admin:$RABBIT_PASS@rabbitmq:5672" >> .env_zipkin
+    - docker stack deploy -c deploy-zipkin.yaml socshared
 
 docker-swarm-deploy-postgres:
   stage: docker-swarm-deploy-postgres
