@@ -4,7 +4,7 @@ services:
   postgres-db:
     image: postgres:11
     ports:
-      - 5533:5432
+      - 5432:5432
     volumes:
       - ./pg-init-scripts:/docker-entrypoint-initdb.d
       - type: bind
