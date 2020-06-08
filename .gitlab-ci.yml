@@ -56,8 +56,7 @@ docker-compose-postgres-deploy:
     - echo "POSTGRES_USER=admin" >> .env_pg
     - echo "POSTGRES_PASSWORD=admin" >> .env_pg
     - echo "POSTGRES_MULTIPLE_DATABASES=auth,vk,fb,bstat,storage,text,sentry,tech_support" >> .env_pg
-    - docker-compose -f docker-compose-postgres.yaml down
-    - docker-compose -f docker-compose-postgres.yaml up -d
+    - docker stack deploy -c deploy-postgres.yaml socshared
 
 #docker-compose-deploy-sentry:
 #  stage: docker-compose-deploy-sentry
@@ -83,19 +82,19 @@ docker-compose-postgres-deploy:
 ##    - docker exec socshared_sentry
 ##    - docker exec socshared_sentry sentry createuser --email admin@local.ru --password Admin12345 --superuser --no-input
 
-docker-swarm-deploy-sentry:
-  stage: docker-swarm-deploy-sentry
-  script:
+#docker-swarm-deploy-sentry:
+#  stage: docker-swarm-deploy-sentry
+#  script:
 #    - touch .env_sentry_pg
 #    - echo "POSTGRES_USER=sentry" >> .env_sentry_pg
 #    - echo "POSTGRES_PASSWORD=$SENTRY_DB_PASSWORD" >> .env_sentry_pg
 #    - echo "POSTGRES_DB=sentry" >> .env_sentry_pg
-    - touch .env_sentry
-    - echo "SENTRY_SECRET_KEY=$SENTRY_KEY" >> .env_sentry
-    - echo "SENTRY_POSTGRES_HOST=pg.socshared.ml" >> .env_sentry
-    - echo "SENTRY_POSTGRES_PORT=5533" >> .env_sentry
-    - echo "SENTRY_DB_USER=admin" >> .env_sentry
-    - echo "SENTRY_DB_PASSWORD=admin" >> .env_sentry
-    - echo "SENTRY_REDIS_HOST=sentry_redis" >> .env_sentry
-    - docker stack deploy -c deploy-sentry.yaml socshared
+#    - touch .env_sentry
+#    - echo "SENTRY_SECRET_KEY=$SENTRY_KEY" >> .env_sentry
+#    - echo "SENTRY_POSTGRES_HOST=pg.socshared.ml" >> .env_sentry
+#    - echo "SENTRY_POSTGRES_PORT=5533" >> .env_sentry
+#    - echo "SENTRY_DB_USER=admin" >> .env_sentry
+#    - echo "SENTRY_DB_PASSWORD=admin" >> .env_sentry
+#    - echo "SENTRY_REDIS_HOST=sentry_redis" >> .env_sentry
+#    - docker stack deploy -c deploy-sentry.yaml socshared
 

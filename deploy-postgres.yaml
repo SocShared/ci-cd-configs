@@ -1,67 +1,17 @@
 version: '3.7'
 services:
-  auth_postgres_db:
-    image: postgres:11
-    deploy:
-      replicas: 1
-    ports:
-      - 5432:5432
-    env_file:
-      - .env_session_pg
 
-  vk_postgres_db:
+  postgres_db:
     image: postgres:11
-    deploy:
-      replicas: 1
     ports:
-      - 5433:5432
+      - 5533:5432
+    volumes:
+      - ./pg-init-scripts:/docker-entrypoint-initdb.d
+      - type: bind
+        source: /home/gitlab-runner/docker/volumes/postgres
+        target: /var/lib/postgresql/data
     env_file:
-      - .env_vk_pg
-
-  fb_postgres_db:
-    image: postgres:11
-    deploy:
-      replicas: 1
-    ports:
-      - 5434:5432
-    env_file:
-      - .env_fb_pg
-
-  bstat_postgres_db:
-    image: postgres:11
-    deploy:
-      replicas: 1
-    ports:
-      - 5435:5432
-    env_file:
-      - .env_bstat_pg
-
-  storage_postgres_db:
-    image: postgres:11
-    deploy:
-      replicas: 1
-    ports:
-      - 5436:5432
-    env_file:
-      - .env_storage_pg
-  
-  tech_support_postgres_db:
-    image: postgres:11
-    deploy:
-      replicas: 1
-    ports:
-      - 5437:5432
-    env_file:
-      - .env_tech_support_pg
-
-  text_postgres_db:
-    image: postgres:11
-    deploy:
-      replicas: 1
-    ports:
-      - 5438:5432
-    env_file:
-      - .env_text_pg
+      - .env_pg
 
 networks:
   default:
