@@ -1,7 +1,7 @@
 version: '3.7'
 services:
 
-  postgres_db:
+  postgres-db:
     image: postgres:11
     ports:
       - 5533:5432
