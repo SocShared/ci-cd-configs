@@ -1,34 +1,34 @@
 stages:
-  - docker-swarm-deploy-rabbitmq
-  - docker-swarm-deploy-zipkin
-  - docker-swarm-deploy-postgres
+#  - docker-swarm-deploy-rabbitmq
+#  - docker-swarm-deploy-zipkin
+#  - docker-swarm-deploy-postgres
   - docker-swarm-deploy-sentry
 
-docker-swarm-deploy-rabbitmq:
-  stage: docker-swarm-deploy-rabbitmq
-  script:
-    - docker 2>/dev/null 1>&2 rmi `docker images -aq` || true
-    - touch .env_rabbit
-    - echo "RABBITMQ_DEFAULT_USER=admin" >> .env_rabbit
-    - echo "RABBITMQ_DEFAULT_PASS=$RABBIT_PASS" >> .env_rabbit
-    - docker stack deploy -c deploy-rabbitmq.yaml socshared
-
-docker-swarm-deploy-zipkin:
-  stage: docker-swarm-deploy-zipkin
-  script:
-    - touch .env_zipkin
-    - echo "RABBIT_URI=amqp://admin:$RABBIT_PASS@rabbitmq:5672" >> .env_zipkin
-    - docker stack deploy -c deploy-zipkin.yaml socshared
-
-docker-swarm-deploy-postgres:
-  stage: docker-swarm-deploy-postgres
-  script:
-    - docker 2>/dev/null 1>&2 rmi `docker images -aq` || true
-    - touch .env_pg
-    - echo "POSTGRES_USER=admin" >> .env_pg
-    - echo "POSTGRES_PASSWORD=admin" >> .env_pg
-    - echo "POSTGRES_MULTIPLE_DATABASES=auth,vk,fb,bstat,storage,text,sentry,tech_support" >> .env_pg
-    - docker stack deploy -c deploy-postgres.yaml socshared
+#docker-swarm-deploy-rabbitmq:
+#  stage: docker-swarm-deploy-rabbitmq
+#  script:
+#    - docker 2>/dev/null 1>&2 rmi `docker images -aq` || true
+#    - touch .env_rabbit
+#    - echo "RABBITMQ_DEFAULT_USER=admin" >> .env_rabbit
+#    - echo "RABBITMQ_DEFAULT_PASS=$RABBIT_PASS" >> .env_rabbit
+#    - docker stack deploy -c deploy-rabbitmq.yaml socshared
+#
+#docker-swarm-deploy-zipkin:
+#  stage: docker-swarm-deploy-zipkin
+#  script:
+#    - touch .env_zipkin
+#    - echo "RABBIT_URI=amqp://admin:$RABBIT_PASS@rabbitmq:5672" >> .env_zipkin
+#    - docker stack deploy -c deploy-zipkin.yaml socshared
+#
+#docker-swarm-deploy-postgres:
+#  stage: docker-swarm-deploy-postgres
+#  script:
+#    - docker 2>/dev/null 1>&2 rmi `docker images -aq` || true
+#    - touch .env_pg
+#    - echo "POSTGRES_USER=admin" >> .env_pg
+#    - echo "POSTGRES_PASSWORD=admin" >> .env_pg
+#    - echo "POSTGRES_MULTIPLE_DATABASES=auth,vk,fb,bstat,storage,text,sentry,tech_support" >> .env_pg
+#    - docker stack deploy -c deploy-postgres.yaml socshared
 
 docker-swarm-deploy-sentry:
   stage: docker-swarm-deploy-sentry
@@ -36,7 +36,6 @@ docker-swarm-deploy-sentry:
     - touch .env_sentry
     - echo "SENTRY_SECRET_KEY=$SENTRY_KEY" >> .env_sentry
     - echo "SENTRY_POSTGRES_HOST=postgres-db" >> .env_sentry
-    - echo "SENTRY_POSTGRES_PORT=5533" >> .env_sentry
     - echo "SENTRY_DB_NAME=sentry" >> .env_sentry
     - echo "SENTRY_DB_USER=admin" >> .env_sentry
     - echo "SENTRY_DB_PASSWORD=admin" >> .env_sentry
