@@ -2,7 +2,6 @@ stages:
   - docker-swarm-deploy-rabbitmq
   - docker-swarm-deploy-zipkin
   - docker-swarm-deploy-postgres
-#  - docker-compose-postgres-deploy
   - docker-swarm-deploy-sentry
 
 docker-swarm-deploy-rabbitmq:
@@ -57,8 +56,8 @@ docker-swarm-deploy-postgres:
     - echo "POSTGRES_MULTIPLE_DATABASES=auth,vk,fb,bstat,storage,text,sentry,tech_support" >> .env_pg
     - docker stack deploy -c deploy-postgres.yaml socshared
 
-docker-compose-deploy-sentry:
-  stage: docker-compose-deploy-sentry
+docker-swarm-deploy-sentry:
+  stage: docker-swarm-deploy-sentry
   script:
     - touch .env_sentry
     - echo "SENTRY_SECRET_KEY=$SENTRY_KEY" >> .env_sentry
