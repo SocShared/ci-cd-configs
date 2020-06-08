@@ -47,7 +47,7 @@ docker-swarm-deploy-zipkin:
 #    - echo "POSTGRES_DB=storage" >> .env_storage_pg
 #    - docker stack deploy -c deploy-postgres.yaml socshared
 
-docker-compose-postgres-deploy:
+docker-swarm-deploy-postgres:
   stage: docker-swarm-deploy-postgres
   script:
     - docker 2>/dev/null 1>&2 rmi `docker images -aq` || true
